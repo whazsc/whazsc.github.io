@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Random Emoji</title>
+    <style>
+    #emoji {
+      font-size: 10vw;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    </style>
+  </head>
+  <body>
+    <div id="emoji"></div>
+    <script>
+    let emoji = localStorage.getItem('emoji');
+    const emojis = ['😀', '😁', '😂', '🤣', '😵', '😱', '😅', '😆', '😉', '😊', '😋', '😎', '😍', '😘', '🥴', '👻', '🤑', '😷', '🤗', '🤔', '🤐', '👽', '🙀', '😶', '🙄', '😏', '😣', '😥', '😮', '🤤', '🥱', '😪', '😫', '😴', '😌', '🤓', '🤫', '🥵', '🤠', '🤡', '🥶', '🥸', '🧐', '🤓'];
+    if (!emoji) {
+      emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    } else {
+      // Get the index from the URL hash and choose the corresponding emoji from the array
+      const hash = window.top.location.hash.substr(1);
+      const idx = parseInt(hash);
+      if (!isNaN(idx)) {
+        emoji = emojis[idx % emojis.length];
+      }
+    }
+    // Save the chosen emoji to local storage and display it on the page
+    localStorage.setItem('emoji', emoji);
+    document.getElementById('emoji').innerHTML = emoji;
+    </script>
+  </body>
+</html>
